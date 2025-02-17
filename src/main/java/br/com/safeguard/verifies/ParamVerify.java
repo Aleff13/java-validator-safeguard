@@ -10,6 +10,7 @@ import br.com.safeguard.constraint.annotations.Verify;
 import br.com.safeguard.exceptions.SafeguardException;
 import br.com.safeguard.interfaces.BaseParam;
 import br.com.safeguard.params.Param;
+import br.com.safeguard.proxies.CnpjProxy;
 
 /**  
  *  Classe de verificação genérica para uma cadeia de caracteres formatados ou não, os dados podem ser
@@ -55,7 +56,11 @@ public class ParamVerify {
 		if(elements.isEmpty()) {
 			throw new SafeguardException("The map can not be empty");
 		}
-		elements.forEach((Integer, param) -> assertValid(param.getValue(), param.getType()));
+
+
+		elements.forEach((Integer, param) -> {
+			BaseParam proxyParam = CnpjProxy.apply(param.getValue(), param.getType());
+			assertValid(param.getValue(), proxyParam);});
 	}
 	
 	/**
