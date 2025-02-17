@@ -1,29 +1,17 @@
-package com.gilmarcarlos.developer.safeguard;
+package com.gilmarcarlos.developer.safeguard.Annotation;
 
 import br.com.safeguard.check.SafeguardCheck;
 import br.com.safeguard.constraint.annotations.Verify;
+import br.com.safeguard.interfaces.Check;
 import br.com.safeguard.types.ParametroTipo;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.Serializable;
 
-public class CnpjTest {
-
+public class CnpjAnnotationTest {
     @Test
-    public void cnpjLegacy() {
-        SafeguardCheck checker = new SafeguardCheck();
-
-        String cnpjLegacy = "00.623.904/0001-73";
-
-        boolean isValid = !checker.elementOf(cnpjLegacy, ParametroTipo.CNPJ).validate().hasError();
-
-        System.out.println(isValid);
-        Assert.assertTrue(isValid);
-    }
-
-    @Test
-    public void cnpjAnnotation() {
+    public void ShouldBeValidCNPJ() {
         SafeguardCheck checker = new SafeguardCheck();
 
         String cnpjLegacy = "00.623.904/0001-73";
@@ -31,11 +19,28 @@ public class CnpjTest {
         Company company = new Company();
         company.setCnpj(cnpjLegacy);
 
-        boolean isValid = !checker.elementOf(company.getCnpj(), ParametroTipo.CNPJ).validate().hasError();
+        Check results = checker.elementOf(company).validate();
 
-        System.out.println(isValid);
+        boolean isValid = !results.hasError();
+
         Assert.assertTrue(isValid);
     }
+
+//    @Test
+//    public void ShouldBeValidAlphaCNPJ() {
+//        SafeguardCheck checker = new SafeguardCheck();
+//
+//        String cnpjLegacy = "ab.623.904/0001-73";
+//
+//        Company company = new Company();
+//        company.setCnpj(cnpjLegacy);
+//
+//        Check results = checker.elementOf(company).validate();
+//
+//        boolean isValid = !results.hasError();
+//
+//        Assert.assertTrue(isValid);
+//    }
 
     static class Company implements Serializable {
         @Verify(value = ParametroTipo.CNPJ)
