@@ -17,20 +17,5 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-
-      - name: cache maven deps
-        uses: actions/cache@v2
-        with:
-            path: ~/.m2/repository   # Cache para dependências do Maven
-            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}  # Chave para o cache
-            restore-keys: |
-              ${{ runner.os }}-maven-
-
-      - name: Build with Maven
-        run: mvn clean install -DskipTests=true  # A opção -DskipTests=true pode ser usada se você não quiser rodar os testes nesse passo
-
       - name: Run tests with Maven
         run: mvn test   # Executa os testes com Maven
-
-      - name: Build JAR with Spring Boot
-        run: mvn spring-boot:repackage
