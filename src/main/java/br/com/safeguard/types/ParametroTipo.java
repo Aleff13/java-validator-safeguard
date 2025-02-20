@@ -34,6 +34,7 @@ import br.com.caelum.stella.validation.ie.IESergipeValidator;
 import br.com.caelum.stella.validation.ie.IETocantinsValidator;
 import br.com.safeguard.interfaces.BaseParam;
 import br.com.safeguard.patterns.Patterns;
+import br.com.safeguard.validators.CNPJAlphanumericValidator;
 import br.com.safeguard.validators.PatternValidator;
 
 /**
@@ -67,7 +68,7 @@ public enum ParametroTipo implements BaseParam{
 	CNPJ																	(new CNPJValidator()),
 	/**Cadeia de caracteres que representa um CNPJ formatado*/
 	CNPJ_FORMATADO															(new CNPJValidator(true)),
-	
+	CNPJ_ALFANUMERICO                                                       (new CNPJAlphanumericValidator()),
 	/**Cadeia de caracteres que representa uma Inscrição estadual*/
 	IE_ACRE_AC 	 															(new IEAcreValidator()),
 	/**Cadeia de caracteres que representa uma Inscrição estadual*/
